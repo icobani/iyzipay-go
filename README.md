@@ -1,4 +1,4 @@
-# iyzipay API Go Client
+# Go Client for iyzipay API 
 
 Go client for iyzipay API has not been officially developed yet. If you need the client, please let us by creating a ticket. According to your requests, we will prioritize and work on the client. 
 
