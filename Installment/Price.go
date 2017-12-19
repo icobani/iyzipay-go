@@ -10,9 +10,9 @@
 * Developer : ibrahimcobani
 *
 *******/
-package Model
+package Installment
 
-type InstallmentPrice struct {
+type Price struct {
 	Price             string
 	TotalPrice        string
 	InstallmentNumber int

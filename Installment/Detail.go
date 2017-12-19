@@ -10,9 +10,9 @@
 * Developer : ibrahimcobani
 *
 *******/
-package Model
+package Installment
 
-type InstallmentDetail struct {
+type Detail struct {
 	BinNumber         string
 	Price             string
 	CardType          string
@@ -22,5 +22,5 @@ type InstallmentDetail struct {
 	BankCode          int32
 	BankName          string
 	ForceCvc          int
-	InstallmentPrices InstallmentPrice
+	InstallmentPrices Price
 }
