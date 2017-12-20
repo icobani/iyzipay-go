@@ -15,15 +15,16 @@ const IYZIWS_HEADER_NAME = "IYZWS "
 const COLON = ":"
 
 type Options struct {
-	ApiKey    string `json:"api_key"`
-	SecretKey string `json:"secre_key"`
-	BaseURL   string `json:"base_url"`
+	ApiKey    string `json:"apiKey"`
+	SecretKey string `json:"secretKey"`
+	BaseURL   string `json:"baseUrl"`
 }
 
 func SetHttpHeader(request Request.BaseRequest, options Options, httpReq *http.Request) {
 	t := time.Now()
 	randomString := strings.Replace(t.Format("02012006150405.0000"), ".", "", -1)
-	randomString = "061220171928250995"
+	// karşılaştırma amaçlı
+	//randomString = "061220171928250995"
 
 	httpReq.Header.Add("Accept", "application/json")
 	httpReq.Header.Add(RANDOM_HEADER_NAME, randomString)
