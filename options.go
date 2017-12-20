@@ -23,8 +23,9 @@ type Options struct {
 func SetHttpHeader(request Request.BaseRequest, options Options, httpReq *http.Request) {
 	t := time.Now()
 	randomString := strings.Replace(t.Format("02012006150405.0000"), ".", "", -1)
-	// karşılaştırma amaçlı
+	// karşılaştırma amaçlı yazıldı.
 	//randomString = "061220171928250995"
+
 
 	httpReq.Header.Add("Accept", "application/json")
 	httpReq.Header.Add(RANDOM_HEADER_NAME, randomString)
