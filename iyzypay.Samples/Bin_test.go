@@ -29,7 +29,7 @@ func TestBin(t *testing.T) {
 	} else {
 		log.Println("Status", binRes.Status)
 		log.Println("Locale", binRes.Locale)
-		log.Println("System Time", binRes.SystemTime)
+		log.Println("System Time", binRes.GetSystemTime())
 		log.Println("Card Type", binRes.CardType)
 		log.Println("Card Association", binRes.CardAssociation)
 		log.Println("Card Family", binRes.CardFamily)

@@ -17,6 +17,6 @@ func TestHealthCheck(t *testing.T) {
 	if healtResp.Status != "success" {
 		t.Errorf("Cannot connect the system. Check the internet connections %s",healtResp.Status)
 	} else {
-		log.Println("Status",healtResp.Status)
+		log.Println("Status:",healtResp.Status,",Locale:",healtResp.Locale)
 	}
 }
