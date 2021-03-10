@@ -1,36 +1,11 @@
 package Response
 
 type CreatePaymentResponse struct {
-	Status                       string             `json:"status"`
-	Locale                       string             `json:"locale"`
-	SystemTime                   int                `json:"systemTime"`
-	ConversationId               string             `json:"conversationId"`
-	Price                        float32            `json:"price"`
-	PaidPrice                    float32            `json:"paidPrice"`
-	Installment                  int                `json:"installment"`
-	PaymentId                    string             `json:"paymentId"`
-	FraudStatus                  int                `json:"fraudStatus"`
-	MerchantCommissionRate       float32            `json:"merchantCommissionRate"`
-	MerchantCommissionRateAmount float32            `json:"merchantCommissionRateAmount"`
-	IyziCommissionRateAmount     float32            `json:"iyziCommissionRateAmount"`
-	IyziCommissionFee            float32            `json:"iyziCommissionFee"`
-	CardType                     string             `json:"cardType"`
-	CardAssociation              string             `json:"cardAssociation"`
-	CardFamily                   string             `json:"cardFamily"`
-	BinNumber                    string             `json:"binNumber"`
-	LastFourDigits               string             `json:"lastFourDigits"`
-	BasketId                     string             `json:"basketId"`
-	Currency                     string             `json:"currency"`
-	Token                        string             `json:"token"`
-	PaymentStatus                string             `json:"paymentStatus"`
-	ItemTransactions             []ItemTransactions `json:"itemTransactions"`
-	CardToken                    string             `json:"cardToken"`
-	CardUserKey                  string             `json:"cardUserKey"`
-	AuthCode                     string             `json:"authCode"`
-	Phase                        string             `json:"phase"`
-	ErrorCode                    string             `json:"errorCode"`
-	ErrorMessage                 string             `json:"errorMessage"`
-	ErrorGroup                   string             `json:"errorGroup"`
+	Status             string `json:"status"`
+	Locale             string `json:"locale"`
+	SystemTime         int    `json:"systemTime"`
+	ConversationId     string `json:"conversationId"`
+	ThreeDSHtmlContent string `json:"threeDSHtmlContent"`
 }
 
 type ItemTransactions struct {

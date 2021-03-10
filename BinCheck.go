@@ -1,40 +1,23 @@
 package Iyzipay
 
 import (
-	"github.com/icobani/iyzipay-go/Request"
 	"encoding/json"
-	"strings"
-	"net/http"
-	"io/ioutil"
+	"github.com/icobani/iyzipay-go/Request"
 	"github.com/icobani/iyzipay-go/Response"
 )
 
-func (i Iyzipay) BinCheck(obj *Request.BinCheckRequest) (*Response.BinCheckResponse, error) {
-	requestBody, err := json.Marshal(obj)
-	if err != nil {
-		return nil, err
+func (i Iyzipay) BinCheck(obj *Request.BinCheckRequest) (Response.BinCheckResponse, error) {
+	result := Response.BinCheckResponse{}
+	if resp, err := i.Client.R().
+		SetHeaders(i.GetHeaders(*obj)).
+		SetBody(obj).
+		Post(i.GetURI("/payment/bin/check")); err == nil {
+		err = json.Unmarshal(resp.Body(), &result)
+		if err != nil {
+			return result, err
+		}
+		return result, nil
+	} else {
+		return result, err
 	}
-	payload := strings.NewReader(string(requestBody))
-	req, err := http.NewRequest("POST", i.URI+Request.BinCheckUrl, payload)
-	if err != nil {
-		return nil, err
-	}
-	i.InitHttpRequest(req, *obj)
-
-	res, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	result := &Response.BinCheckResponse{}
-	err = json.Unmarshal(body, result)
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
 }

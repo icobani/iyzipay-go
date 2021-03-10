@@ -1,10 +1,10 @@
 package iyzypay_Samples
 
 import (
-	"testing"
 	"github.com/icobani/iyzipay-go"
 	"github.com/icobani/iyzipay-go/Request"
 	"log"
+	"testing"
 )
 
 /*
@@ -12,12 +12,11 @@ import (
 	Taksit sorgulama(installment), ilgili kart bir kredi kartı ise ve bir taksit programına dahil ise,
 kaç taksit yapılabileceği ve taksit komisyon oranı konusunda bilgi vermektedir.
 
- */
+*/
 func TestInstallmentCheck(t *testing.T) {
 	var Pay, _ = Iyzipay.Iyzipay{}.New(
-		"sandbox-lwggMKTv5mSwC1Z4e6Zay4n6HKUOhqOX",
-		"sandbox-Ok8ZKrca4DWyEjGX0GHq8zwOCpne0rEQ",
-		"https://sandbox-api.iyzipay.com",
+		"TBrS4jBYv3HY63qaAOQ1eC0oSmidbhuu",
+		"vUoZ6kCGhEnEDwu2qVVZOq5DPKfOFL2r",
 	)
 
 	instReq := Request.InstallmentRequest{
@@ -29,20 +28,5 @@ func TestInstallmentCheck(t *testing.T) {
 
 	insRes, _ := Pay.InstallmentCheck(&instReq)
 
-	log.Println("Status", insRes.Status)
-	log.Println("Error Code", insRes.ErrorCode)
-	log.Println("Error Message", insRes.ErrorMessage)
-	for _, item := range insRes.InstallmentDetails {
-		log.Println("Bank Name", item.BankName)
-		log.Println("Force 3DS", item.Force3ds)
-		log.Println("Force Cvc", item.ForceCvc)
-		log.Println("Card Type", item.CardType)
-		log.Println("Card Family", item.CardFamilyName)
-		log.Println("Card Association", item.CardAssociation)
-		for _, installments := range item.InstallmentPrices {
-			log.Println("Installemnts Number : ", installments.InstallmentNumber,
-				"Installment Price", installments.InstallmentPrice,
-				"Total Price", installments.TotalPrice)
-		}
-	}
+	log.Printf("%#v\n", insRes)
 }
