@@ -2,6 +2,8 @@ package Response
 
 type CreatePaymentResponse struct {
 	Status             string `json:"status"`
+	ErrorCode          string `json:"errorCode"`
+	ErrorMessage       string `json:"errorMessage"`
 	Locale             string `json:"locale"`
 	SystemTime         int    `json:"systemTime"`
 	ConversationId     string `json:"conversationId"`

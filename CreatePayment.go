@@ -12,6 +12,7 @@ func (i Iyzipay) CreatePayment(obj *Request.CreatePaymentRequest) (Response.Crea
 		SetHeaders(i.GetHeaders(*obj)).
 		SetBody(obj).
 		Post(i.GetURI("/payment/3dsecure/initialize")); err == nil {
+		//fmt.Println(string(resp.Body()))
 		err = json.Unmarshal(resp.Body(), &result)
 		if err != nil {
 			return result, err

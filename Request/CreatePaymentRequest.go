@@ -198,12 +198,16 @@ type CreatePayment_BasketItems struct {
 	// Üye işyeri tarafındaki sepetteki ürüne ait kategori 2.
 	Category2 string `json:"category2"`
 
-	// Üye işyeri tarafındaki sepetteki ürüne ait tip. Geçerli enum değerler: PHYSICAL ve VIRTUAL.
+	// Üye işyeri tarafındaki sepetteki ürüne ait tip. Geçerli enum değerler:
+	//
+	// PHYSICAL ve
+	//
+	// VIRTUAL.
 	ItemType string `json:"itemType"`
 
 	// SubMerchantKey
-	SubMerchantKey string `json:"subMerchantKey"`
+	SubMerchantKey string `json:"subMerchantKey,omitempty"`
 
 	// SubMerchantPrice
-	SubMerchantPrice string `json:"subMerchantPrice"`
+	SubMerchantPrice string `json:"subMerchantPrice,omitempty"`
 }

@@ -107,6 +107,12 @@ func RequestString(v interface{}) (res string) {
 			res += ","
 		}
 	}
+
+	// Last char control
+	if res[len(res)-1:] == "," {
+		res = res[0 : len(res)-1]
+	}
 	res = "[" + res + "]"
+	//fmt.Println(res)
 	return res
 }
