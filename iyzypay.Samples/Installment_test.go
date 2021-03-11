@@ -15,8 +15,8 @@ kaç taksit yapılabileceği ve taksit komisyon oranı konusunda bilgi vermekted
 */
 func TestInstallmentCheck(t *testing.T) {
 	var Pay, _ = Iyzipay.Iyzipay{}.New(
-		"TBrS4jBYv3HY63qaAOQ1eC0oSmidbhuu",
-		"vUoZ6kCGhEnEDwu2qVVZOq5DPKfOFL2r",
+		"<api-key>",
+		"<api-secret>",
 	)
 
 	instReq := Request.InstallmentRequest{

@@ -8,8 +8,8 @@ import (
 
 func TestHealthCheck(t *testing.T) {
 	var Pay, _ = Iyzipay.Iyzipay{}.New(
-		"sandbox-lwggMKTv5mSwC1Z4e6Zay4n6HKUOhqOX",
-		"sandbox-Ok8ZKrca4DWyEjGX0GHq8zwOCpne0rEQ",
+		"<api-key>",
+		"<api-secret>",
 	)
 	healtResp, _ := Pay.HealtCheck()
 
