@@ -211,3 +211,14 @@ type CreatePayment_BasketItems struct {
 	// SubMerchantPrice
 	SubMerchantPrice string `json:"subMerchantPrice,omitempty"`
 }
+
+type ThreeDHandshakeReq struct {
+	// iyzico istek sonucunda dönen metinlerin dilini ayarlamak için kullanılır. Varsayılan değeri tr’dir
+	Locale string `json:"locale"`
+	// İstek esnasında gönderip, sonuçta alabileceğiniz bir değer, request/response eşleşmesi yapmak için kullanılabilir
+	ConversationID string `json:"conversationId"`
+	// 3D dönüş bağlantı adresinizden alacağınız paymentid değeridir.
+	PaymentID string `json:"paymentId"`
+	// 3D dönüş bağlantı adresinizden alacağınız conversationData değeridir. Bu parametre bir değer ile dönüş yapmış ise 3D ödeme sorgusunda eklenmelidir
+	ConversationDate string `json:"conversationData"`
+}
