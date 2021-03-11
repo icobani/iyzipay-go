@@ -1,5 +1,10 @@
 package Response
 
+import (
+	"strconv"
+	"strings"
+)
+
 type CreatePaymentResponse struct {
 	Status             string `json:"status"`
 	ErrorCode          string `json:"errorCode"`
@@ -8,64 +13,6 @@ type CreatePaymentResponse struct {
 	SystemTime         int    `json:"systemTime"`
 	ConversationId     string `json:"conversationId"`
 	ThreeDSHtmlContent string `json:"threeDSHtmlContent"`
-}
-
-// Handshake Response
-// Dönüş parametreleri ise aşağıdaki gibidir:
-//
-// status parametresi işlemin durumu hakkında bilgi verir. success ise işlem başarılı bir şekilde yapılmış ve para çekilmiş demektir. failure ise işlem başarısız olmuş ve sebebi ile alakalı olarak hata bilgilendirmesi yapılmış demektir.
-// paymentid ve paymenttransactionid değerleri mutlaka saklanmalıdır.
-type HandshakeResponse3D struct {
-	Status                       string            `json:"status"`
-	ErrorCode                    string            `json:"errorCode"`
-	ErrorMessage                 string            `json:"errorMessage"`
-	Locale                       string            `json:"locale"`
-	SystemTime                   int               `json:"systemTime"`
-	ConversationId               string            `json:"conversationId"`
-	Price                        float32           `json:"price"`
-	PaidPrice                    float32           `json:"paidPrice"`
-	Currency                     string            `json:"currency"`
-	Installment                  int               `json:"installment"`
-	BasketID                     int               `json:"basketId"`
-	BinNumber                    string            `json:"binNumber"`
-	CardAssociation              string            `json:"cardAssociation"`
-	CardFamily                   string            `json:"cardFamily"`
-	CardType                     string            `json:"cardType"`
-	FraudStatus                  int               `json:"fraudStatus"`
-	PaymentID                    string            `json:"paymentId"`
-	IyziCommissionRateAmount     float32           `json:"iyziCommissionRateAmount"`
-	IyziCommissionFee            float32           `json:"iyziCommissionFee"`
-	MerchantCommissionRate       float32           `json:"merchantCommissionRate"`
-	MerchantCommissionRateAmount float32           `json:"merchantCommissionRateAmount"`
-	ItemTransactions             []ItemTransaction `json:"ItemTransactions"`
-}
-
-type ItemTransaction struct {
-	PaymentTransactionId         string          `json:"paymentTransactionId"`
-	ItemId                       string          `json:"itemId"`
-	Price                        float64         `json:"price"`
-	PaidPrice                    float64         `json:"paidPrice"`
-	TransactionStatus            int             `json:"transactionStatus"`
-	BlockageRate                 float32         `json:"blockageRate"`
-	BlockageRateAmountMerchant   float32         `json:"blockageRateAmountMerchant"`
-	BlockageResolvedDate         string          `json:"blockageResolvedDate"`
-	IyziCommissionFee            float64         `json:"iyziCommissionFee"`
-	IyziCommissionRateAmount     float64         `json:"iyziCommissionRateAmount"`
-	MerchantCommissionRate       float64         `json:"merchantCommissionRate"`
-	MerchantCommissionRateAmount float64         `json:"merchantCommissionRateAmount"`
-	MerchantPayoutAmount         float32         `json:"merchantPayoutAmount"`
-	ConvertedPayout              ConvertedPayout `json:"convertedPayout"`
-}
-
-type ConvertedPayout struct {
-	PaidPrice                  float32 `json:"paidPrice"`
-	IyziCommissionFee          float32 `json:"iyziCommissionFee"`
-	IyziCommissionRateAmount   float32 `json:"iyziCommissionRateAmount"`
-	BlockageRateAmountMerchant float32 `json:"blockageRateAmountMerchant"`
-	MerchantPayoutAmount       float32 `json:"merchantPayoutAmount"`
-	IyziConversionRate         float32 `json:"iyziConversionRate"`
-	IyziConversionRateAmount   float32 `json:"iyziConversionRateAmount"`
-	Currency                   string  `json:"currency"`
 }
 
 // threedsHtmlContent parmetresini ekrana bastırdığınızda bankanın 3ds ekranı görüntülenecektir.
@@ -97,5 +44,84 @@ type ThreeDPaymentResponse struct {
 	// mdStatus = 7	Sistem hatası
 	//
 	// mdStatus = 8	Bilinmeyen kart no
-	MSStatus string `json:"mdStatus"`
+	MDStatus string `json:"mdStatus"`
+}
+
+// "status=success&paymentId=1490176961&conversationData=&conversationId=123456789&mdStatus=1"
+func (t *ThreeDPaymentResponse) Bind(query string) {
+	params := strings.Split(query, "&")
+	m := make(map[string]string)
+	for _, part := range params {
+		vals := strings.Split(part, "=")
+		m[vals[0]] = vals[1]
+	}
+	t.Status = m["status"]
+	t.PaymentID = m["paymentId"]
+	t.ConversationData = m["conversationData"]
+	t.ConversationID, _ = strconv.ParseUint(m["conversationId"], 10, 64)
+	t.MDStatus = m["mdStatus"]
+}
+
+// Handshake Response
+// Dönüş parametreleri ise aşağıdaki gibidir:
+//
+// status parametresi işlemin durumu hakkında bilgi verir. success ise işlem başarılı bir şekilde yapılmış ve para çekilmiş demektir. failure ise işlem başarısız olmuş ve sebebi ile alakalı olarak hata bilgilendirmesi yapılmış demektir.
+// paymentid ve paymenttransactionid değerleri mutlaka saklanmalıdır.
+
+type HandshakeResponse3D struct {
+	AuthCode         string `json:"authCode"`
+	BasketID         string `json:"basketId"`
+	BinNumber        string `json:"binNumber"`
+	CardAssociation  string `json:"cardAssociation"`
+	CardFamily       string `json:"cardFamily"`
+	CardType         string `json:"cardType"`
+	ConversationID   string `json:"conversationId"`
+	Currency         string `json:"currency"`
+	FraudStatus      int64  `json:"fraudStatus"`
+	HostReference    string `json:"hostReference"`
+	Installment      int64  `json:"installment"`
+	ItemTransactions []struct {
+		BlockageRate                  float64 `json:"blockageRate"`
+		BlockageRateAmountMerchant    float64 `json:"blockageRateAmountMerchant"`
+		BlockageRateAmountSubMerchant float64 `json:"blockageRateAmountSubMerchant"`
+		BlockageResolvedDate          string  `json:"blockageResolvedDate"`
+		ConvertedPayout               struct {
+			BlockageRateAmountMerchant    float64 `json:"blockageRateAmountMerchant"`
+			BlockageRateAmountSubMerchant float64 `json:"blockageRateAmountSubMerchant"`
+			Currency                      string  `json:"currency"`
+			IyziCommissionFee             float64 `json:"iyziCommissionFee"`
+			IyziCommissionRateAmount      float64 `json:"iyziCommissionRateAmount"`
+			IyziConversionRate            float64 `json:"iyziConversionRate"`
+			IyziConversionRateAmount      float64 `json:"iyziConversionRateAmount"`
+			MerchantPayoutAmount          float64 `json:"merchantPayoutAmount"`
+			PaidPrice                     float64 `json:"paidPrice"`
+			SubMerchantPayoutAmount       float64 `json:"subMerchantPayoutAmount"`
+		} `json:"convertedPayout"`
+		ItemID                       string  `json:"itemId"`
+		IyziCommissionFee            float64 `json:"iyziCommissionFee"`
+		IyziCommissionRateAmount     float64 `json:"iyziCommissionRateAmount"`
+		MerchantCommissionRate       float64 `json:"merchantCommissionRate"`
+		MerchantCommissionRateAmount float64 `json:"merchantCommissionRateAmount"`
+		MerchantPayoutAmount         float64 `json:"merchantPayoutAmount"`
+		PaidPrice                    float64 `json:"paidPrice"`
+		PaymentTransactionID         string  `json:"paymentTransactionId"`
+		Price                        float64 `json:"price"`
+		SubMerchantPayoutAmount      float64 `json:"subMerchantPayoutAmount"`
+		SubMerchantPayoutRate        float64 `json:"subMerchantPayoutRate"`
+		SubMerchantPrice             float64 `json:"subMerchantPrice"`
+		TransactionStatus            int64   `json:"transactionStatus"`
+	} `json:"itemTransactions"`
+	IyziCommissionFee            float64 `json:"iyziCommissionFee"`
+	IyziCommissionRateAmount     float64 `json:"iyziCommissionRateAmount"`
+	LastFourDigits               string  `json:"lastFourDigits"`
+	Locale                       string  `json:"locale"`
+	MdStatus                     int64   `json:"mdStatus"`
+	MerchantCommissionRate       float64 `json:"merchantCommissionRate"`
+	MerchantCommissionRateAmount float64 `json:"merchantCommissionRateAmount"`
+	PaidPrice                    float64 `json:"paidPrice"`
+	PaymentID                    string  `json:"paymentId"`
+	Phase                        string  `json:"phase"`
+	Price                        float64 `json:"price"`
+	Status                       string  `json:"status"`
+	SystemTime                   int64   `json:"systemTime"`
 }

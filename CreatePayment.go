@@ -29,7 +29,7 @@ func (i Iyzipay) ThreeDSPayment(obj *Request.ThreeDHandshakeReq) (Response.Hands
 	if resp, err := i.Client.R().
 		SetHeaders(i.GetHeaders(*obj)).
 		SetBody(obj).
-		Post(i.GetURI("/payment/3dsecure/initialize")); err == nil {
+		Post(i.GetURI("/payment/3dsecure/auth")); err == nil {
 		fmt.Println(string(resp.Body()))
 		err = json.Unmarshal(resp.Body(), &result)
 		if err != nil {
