@@ -16,3 +16,8 @@ iyzipay.Samples/CreatePayment_test.go
 iyzipay.Samples\CreatePayment_test.go 
 iyzypay.Samples/CreatePayment_test.go 
 iyzipay.Samples/ 
+iyzypay.Samples/Bin_test.go 
+iyzypay.Samples/HealtCheck_test.go 
+iyzypay.Samples/HealtCheck_test.go 
+iyzypay.Samples/Installment_test.go 
+iyzypay.Samples/ThreeDPaymentResponse_test.go 
