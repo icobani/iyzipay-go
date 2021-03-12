@@ -3,6 +3,7 @@
 *.dll
 *.so
 *.dylib
+*.jar
 
 # Test binary, build with `go test -c`
 *.test
@@ -10,4 +11,8 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 .idea/
-vendor/
+vendor/CreatePayment_test.go 
+iyzipay.Samples/CreatePayment_test.go 
+iyzipay.Samples\CreatePayment_test.go 
+iyzypay.Samples/CreatePayment_test.go 
+iyzipay.Samples/ 
