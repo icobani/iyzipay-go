@@ -14,10 +14,10 @@
 vendor/CreatePayment_test.go 
 iyzipay.Samples/CreatePayment_test.go 
 iyzipay.Samples\CreatePayment_test.go 
-iyzypay.Samples/CreatePayment_test.go 
+examples/CreatePayment_test.go
 iyzipay.Samples/ 
-iyzypay.Samples/Bin_test.go 
-iyzypay.Samples/HealtCheck_test.go 
-iyzypay.Samples/HealtCheck_test.go 
-iyzypay.Samples/Installment_test.go 
-iyzypay.Samples/ThreeDPaymentResponse_test.go 
+examples/Bin_test.go
+examples/HealtCheck_test.go
+examples/HealtCheck_test.go
+examples/Installment_test.go
+examples/ThreeDPaymentResponse_test.go
