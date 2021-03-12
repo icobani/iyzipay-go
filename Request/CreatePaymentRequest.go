@@ -14,10 +14,12 @@ Servise gönderilmesi gereken parametreler şu şekildedir:
 */
 type CreatePaymentRequest struct {
 	// iyzico istek sonucunda dönen metinlerin dilini ayarlamak için kullanılır.
+	//
 	// Varsayılan değeri tr’dir. en olarak kullanılabilir.
 	Locale string `json:"locale"`
 
 	// İstek esnasında gönderip, sonuçta alabileceğiniz bir değer, request/response eşleşmesi yapmak için
+	//
 	// kullanılabilir. En yaygın kullanış biçimi üye iş yerinin sipariş numarasıdır.
 	ConversationId string `json:"conversationId"`
 
@@ -25,6 +27,7 @@ type CreatePaymentRequest struct {
 	Price string `json:"price"`
 
 	// İndirim vade farkı vs. hesaplanmış POS’tan geçecek nihai tutar. Price değerinden küçük,
+	//
 	// büyük veya eşit olabilir.
 	PaidPrice string `json:"paidPrice"`
 
@@ -32,13 +35,21 @@ type CreatePaymentRequest struct {
 	Installment int `json:"installment"`
 
 	// Ödeme kanalı. Geçerli değerler enum içinde sunulmaktadır:
+	//
 	// * WEB,
+	//
 	// * MOBILE,
+	//
 	// * MOBILE_WEB,
+	//
 	// * MOBILE_IOS,
+	//
 	// * MOBILE_ANDROID,
+	//
 	// * MOBILE_WINDOWS,
+	//
 	// * MOBILE_TABLET,
+	//
 	// * MOBILE_PHONE
 	PaymentChannel string `json:"paymentChannel"`
 
@@ -47,9 +58,13 @@ type CreatePaymentRequest struct {
 	BasketId string `json:"basketId"`
 
 	// Ödeme grubu, varsayılan PRODUCT. Geçerli değerler enum içinde sunulmaktadır:
+	//
 	// * PRODUCT,
+	//
 	// * LISTING,
+	//
 	// * SUBSCRIPTION,
+	//
 	// * OTHER.
 	PaymentGroup string `json:"paymentGroup"`
 
