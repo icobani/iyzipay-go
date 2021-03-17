@@ -1,7 +1,6 @@
 package Response
 
 import (
-	"strconv"
 	"strings"
 )
 
@@ -26,7 +25,7 @@ type ThreeDPaymentResponse struct {
 	// İşlem success yani başarılı ise, iyzico tarafından o ödemeye verilen değerdir. Bütün durumlarda dolu gelmeyebilir. Eğer dolu gelirse bu parametrenin de 3D bitirme sorgusunda gönderilmesi gerekir.
 	ConversationData string `json:"conversationData"`
 	// Başlatma sorgusunda gönderilen conversationId değeridir.
-	ConversationID uint64 `json:"conversationId"`
+	ConversationID string `json:"conversationId"`
 	// Bilgilendirme amaçlı dönen mdStatus değeridir. Başarılı durumlar için 1 başarısız durumlar için ise 0,2,3,4,5,6,7,8 olarak dönebilir
 	//
 	// mdStatus = 0	3-D Secure imzası geçersiz veya doğrulama
@@ -58,7 +57,7 @@ func (t *ThreeDPaymentResponse) Bind(query string) {
 	t.Status = m["status"]
 	t.PaymentID = m["paymentId"]
 	t.ConversationData = m["conversationData"]
-	t.ConversationID, _ = strconv.ParseUint(m["conversationId"], 10, 64)
+	t.ConversationID = m["conversationId"]
 	t.MDStatus = m["mdStatus"]
 }
 
