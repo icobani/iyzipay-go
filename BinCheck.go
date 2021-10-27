@@ -7,7 +7,7 @@ import (
 )
 
 func (i Iyzipay) BinCheck(obj *Request.BinCheckRequest) (Response.BinCheckResponse, error) {
-	// minnak kurbaa
+	// minnak kurbaa baya minnak kurbaas
 	result := Response.BinCheckResponse{}
 	if resp, err := i.Client.R().
 		SetHeaders(i.GetHeaders(*obj)).
