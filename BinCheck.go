@@ -1,6 +1,7 @@
 package Iyzipay
 
 import (
+	"fmt"
 	"encoding/json"
 	"github.com/icobani/iyzipay-go/Request"
 	"github.com/icobani/iyzipay-go/Response"
@@ -20,5 +21,5 @@ func (i Iyzipay) BinCheck(obj *Request.BinCheckRequest) (Response.BinCheckRespon
 		return result, nil
 	} else {
 		return result, err
-	}
+	}	
 }
